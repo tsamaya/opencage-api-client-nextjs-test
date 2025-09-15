@@ -1,19 +1,27 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import opencage from 'opencage-api-client';
-import type { GeocodingRequest } from 'opencage-api-client';
 
-export default async function Home() {
-  // Server side call to OpenCage Geocoding API
-  // The API Key is hidden from the browser
-  // See https://opencagedata.com/api#testingkeys for a free testing key
+export default function Client() {
+  // In production, you should use a server-side API route to hide your API key
+  // https://nextjs.org/docs/app/building-your-application/routing/api-routes
 
-  const input: GeocodingRequest = {
-    q: '51.952659,7.632473', // hardcoded coordinates for demo purposes and anyway the test key will always the same result
-    key: process.env.OPENCAGE_API_KEY!, // Use a server-only env var
-    no_annotations: 1,
-  };
-  const result = await opencage.geocode(input);
+  const [serverResult, setServerResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleServerGeocode() {
+    setLoading(true);
+    const res = await fetch('/api/geocode', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      // hardcoded coordinates for demo purposes and anyway the test key will always the same result
+      body: JSON.stringify({ q: '51.952659,7.632473' }),
+    });
+    const data = await res.json();
+    setServerResult(data.results[0].components);
+    setLoading(false);
+  }
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -28,42 +36,43 @@ export default async function Home() {
         />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
-            This page is rendered server-side, and uses the{' '}
+            This page is rendered client-side, and uses the{' '}
             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
               OpenCage Geocoding API
             </code>
-            , the API Key is hidden from the browser:
-            <div className="mt-10 text-center">
-              {JSON.stringify(result.results[0].components)}
-            </div>
-          </li>
-          <li className="tracking-[-.01em]">
-            Click the <Link href={'/client'}>button</Link> below to see an
-            example using a page rendered on the client-side.
+            , the API Key is hidden from the browser as the geocoding routine is
+            called from a server-side API route, click the button below to see
+            the result
           </li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Link
+          <button
+            type="button"
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href={'/client'}
+            onClick={handleServerGeocode}
+            disabled={loading}
           >
             <Image
               className="dark:invert"
-              src="/globe.svg"
-              alt="Globe icon"
+              src="/vercel.svg"
+              alt="Vercel logomark"
               width={20}
               height={20}
             />
-            Client-Side Example
-          </Link>
+            {loading ? 'Loading...' : 'Geocode (Server)'}
+          </button>
+          {serverResult && (
+            <div className="mt-4 text-center">
+              <strong>Server-side result:</strong>
+              <pre>{JSON.stringify(serverResult, null, 2)}</pre>
+            </div>
+          )}
           <a
             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://opencagedata.com/api"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/"
           >
-            Read our docs
+            Back
           </a>
         </div>
       </main>
