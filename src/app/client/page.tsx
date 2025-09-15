@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { GeocodingResponse } from 'opencage-api-client';
 
 export default function Client() {
   // In production, you should use a server-side API route to hide your API key
   // https://nextjs.org/docs/app/building-your-application/routing/api-routes
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [serverResult, setServerResult] = useState<any>(null);
+  const [serverResult, setServerResult] = useState<GeocodingResponse | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   async function handleServerGeocode() {
@@ -21,7 +23,7 @@ export default function Client() {
       body: JSON.stringify({ q: '51.952659,7.632473' }),
     });
     const data = await res.json();
-    setServerResult(data.results[0].components);
+    setServerResult(data);
     setLoading(false);
   }
 
@@ -67,7 +69,9 @@ export default function Client() {
           {serverResult && (
             <div className="mt-4 text-center">
               <strong>Server-side result:</strong>
-              <pre>{JSON.stringify(serverResult, null, 2)}</pre>
+              <pre>
+                {JSON.stringify(serverResult.results[0].components, null, 2)}
+              </pre>
             </div>
           )}
           <Link
