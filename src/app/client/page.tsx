@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Client() {
   // In production, you should use a server-side API route to hide your API key
   // https://nextjs.org/docs/app/building-your-application/routing/api-routes
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [serverResult, setServerResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -56,7 +58,7 @@ export default function Client() {
             <Image
               className="dark:invert"
               src="/vercel.svg"
-              alt="Vercel logomark"
+              alt="Vercel logo"
               width={20}
               height={20}
             />
@@ -68,12 +70,12 @@ export default function Client() {
               <pre>{JSON.stringify(serverResult, null, 2)}</pre>
             </div>
           )}
-          <a
+          <Link
             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
             href="/"
           >
             Back
-          </a>
+          </Link>
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
