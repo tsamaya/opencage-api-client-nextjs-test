@@ -3,28 +3,33 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import opencage from 'opencage-api-client';
+// import { geocode } from 'opencage-api-client'; // works as well
 import type { GeocodingResponse } from 'opencage-api-client';
 import Footer from '@/components/Footer';
 
-export default function Client() {
+export default function WrongUsageClientSide() {
   // In production, you should use a server-side API route to hide your API key
   // https://nextjs.org/docs/app/building-your-application/routing/api-routes
 
-  const [serverResult, setServerResult] = useState<GeocodingResponse | null>(
+  const [clientResult, setClientResult] = useState<GeocodingResponse | null>(
     null
   );
   const [loading, setLoading] = useState(false);
 
-  async function handleServerGeocode() {
+  async function handleClientGeocode() {
     setLoading(true);
-    const res = await fetch('/api/geocode', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      // hardcoded coordinates for demo purposes and anyway the test key will always the same result
-      body: JSON.stringify({ q: '51.952659,7.632473' }),
+    // This is a WRONG usage, the API key is exposed to the browser
+    // and can be misused by anyone
+    // NEVER do this in production
+
+    // const res = await geocode({ // works as well
+
+    const res = await opencage.geocode({
+      q: '51.952659,7.632473',
+      key: '6d0e711d72d74daeb2b0bfd2a5cdfdba', // test key. Always the same result
     });
-    const data = await res.json();
-    setServerResult(data);
+    setClientResult(res);
     setLoading(false);
   }
 
@@ -41,16 +46,16 @@ export default function Client() {
         />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
-            This page is rendered client-side, and uses the{' '}
+            This page is rendered client-side and uses the{' '}
             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
               OpenCage Geocoding API
-            </code>
-            , the API Key is{' '}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              hidden
             </code>{' '}
-            from the browser as the geocoding route is called from a server-side
-            API route, click the button below to see the result
+            client-side. The API Key is
+            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
+              exposed
+            </code>{' '}
+            in the browser as the geocoding is called from the client-side.
+            Click the button below to see the result.
           </li>
         </ol>
 
@@ -58,7 +63,7 @@ export default function Client() {
           <button
             type="button"
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            onClick={handleServerGeocode}
+            onClick={handleClientGeocode}
             disabled={loading}
           >
             <Image
@@ -68,13 +73,13 @@ export default function Client() {
               width={20}
               height={20}
             />
-            {loading ? 'Loading...' : 'Geocode (Server)'}
+            {loading ? 'Loading...' : 'Geocode (Client)'}
           </button>
-          {serverResult && (
+          {clientResult && (
             <div className="mt-4 text-center">
               <strong>Server-side result:</strong>
               <pre>
-                {JSON.stringify(serverResult.results[0].components, null, 2)}
+                {JSON.stringify(clientResult.results[0].components, null, 2)}
               </pre>
             </div>
           )}
