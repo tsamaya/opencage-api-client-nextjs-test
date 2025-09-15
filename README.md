@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-First, clone the repo, install the dependencies run the development server:
+First, clone the repo, install the dependencies, and run the development server:
 
 ```bash
 pnpm install
@@ -21,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 To learn more about OpenCage, take a look at the following resources:
 
 - [Geocodging API Documentation](https://opencagedata.com/api) - learn about OpenCage API.
-- [Learn about OpenCage integration](https://opencagedata.com/sdks) - a comprehensive list tutorial.
+- [Learn about OpenCage integration](https://opencagedata.com/sdks) - a comprehensive list of tutorials.
 
 ## Contributing
 
