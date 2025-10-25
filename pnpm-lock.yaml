@@ -12,8 +12,8 @@ importers:
         specifier: 15.5.3
         version: 15.5.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       opencage-api-client:
-        specifier: 2.0.1-beta.1
-        version: 2.0.1-beta.1
+        specifier: 2.1.0
+        version: 2.1.0
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -1456,8 +1456,8 @@ packages:
     resolution: {integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==}
     engines: {node: '>= 0.4'}
 
-  opencage-api-client@2.0.1-beta.1:
-    resolution: {integrity: sha512-WzIaufz5W4wuBIaJJhC8BzphQQxWtW4KYwunwyeN4u2kpDPb8DPM11QYjwJ2+WZ+isVV6IjsN4AXWIfnFaTBSA==}
+  opencage-api-client@2.1.0:
+    resolution: {integrity: sha512-YeYuAZeaOtzMeiHHdBztSvKdANmJ9d6ZNfGF3H6WAPl+XlIM0ck0rWzkDMFmHjtyKXTrK2vokcfh5hiQzDZNDQ==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -3312,7 +3312,7 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  opencage-api-client@2.0.1-beta.1: {}
+  opencage-api-client@2.1.0: {}
 
   optionator@0.9.4:
     dependencies:
