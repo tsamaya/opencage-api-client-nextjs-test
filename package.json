@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "next": "15.5.3",
-    "opencage-api-client": "2.0.1-beta.1",
+    "opencage-api-client": "2.1.0",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
