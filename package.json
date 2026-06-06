@@ -10,7 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "next": "15.5.9",
+    "next": "15.5.19",
     "opencage-api-client": "2.1.2",
     "react": "19.1.1",
     "react-dom": "19.1.1"
@@ -22,7 +22,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.3",
+    "eslint-config-next": "15.5.19",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
