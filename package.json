@@ -3,26 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "next": "15.5.20",
+    "next": "16.2.10",
     "opencage-api-client": "2.1.2",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.20",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.2.10",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
